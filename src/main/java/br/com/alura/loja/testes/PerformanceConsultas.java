@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import br.com.alura.loja.dao.CategoriaDao;
 import br.com.alura.loja.dao.ClienteDao;
+import br.com.alura.loja.dao.PedidoDao;
 import br.com.alura.loja.dao.ProdutoDao;
 import br.com.alura.loja.modelo.Categoria;
 import br.com.alura.loja.modelo.Cliente;
@@ -18,8 +19,11 @@ public class PerformanceConsultas {
 	public static void main(String[] args) {
 //		popularBancoDeDados();
 		EntityManager em = JPAUtil.getEntityManager();
-		Pedido pedido = em.find(Pedido.class, 2l);		
-		System.out.println(pedido.getData());
+		PedidoDao pedidoDao = new PedidoDao(em);
+		Pedido pedido = pedidoDao.buscarPedidoComCliente(10l);
+		
+		em.close();
+		System.out.println(pedido.getCliente().getNome());
 		
 	}
 
